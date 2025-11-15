@@ -1,0 +1,196 @@
+:root {
+  color-scheme: dark;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background-color: #05060a;
+  color: #f5f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(4, 7, 30, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+}
+
+.view-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.view-menu button {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: inherit;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.view-menu button.active {
+  background: #32d3ff;
+  border-color: #32d3ff;
+  color: #05060a;
+}
+
+.stats strong {
+  font-size: 1.3rem;
+}
+
+.stats {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.layout {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.list-panel {
+  width: 28%;
+  max-width: 420px;
+  background: rgba(12, 18, 44, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.list-panel header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.list-panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7ddcff;
+}
+
+.list-panel input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  color: inherit;
+}
+
+.rso-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.rso-list li {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  transition: background 0.15s ease;
+}
+
+.rso-list li:hover,
+.rso-list li.active {
+  background: rgba(50, 211, 255, 0.08);
+}
+
+.rso-list .title {
+  font-weight: 600;
+}
+
+.rso-list .meta {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.rso-list .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.rso-list .tags span {
+  font-size: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  padding: 0.15rem 0.45rem;
+}
+
+.viewer-panel {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #020307;
+}
+
+.viewer {
+  flex: 1;
+  min-height: 360px;
+}
+
+.details {
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.45);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.details h2 {
+  margin: 0 0 0.35rem;
+}
+
+.details .ids {
+  margin: 0 0 0.5rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.details pre {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.75rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .list-panel {
+    width: 100%;
+    max-width: none;
+    height: 320px;
+  }
+}

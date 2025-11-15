@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" ng-app="orbitrApp">
+  <head>
+    <meta charset="utf-8" />
+    <title>Orbitr Mission Console</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cesium@1.113/Build/Cesium/Widgets/widgets.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cesium@1.113/Build/Cesium/Cesium.js"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body ng-controller="MainController as vm">
+    <header class="app-header">
+      <h1>Orbitr Space Object Almanac</h1>
+      <div class="view-menu">
+        <span>View:</span>
+        <button ng-class="{active: vm.viewMode === '3d'}" ng-click="vm.changeView('3d')">3D Globe</button>
+        <button ng-class="{active: vm.viewMode === '2d'}" ng-click="vm.changeView('2d')">2D Map</button>
+      </div>
+      <div class="stats">
+        <span>Total RSOs:</span>
+        <strong>{{ vm.rsos.length }}</strong>
+        <span>Catalog entries:</span>
+        <strong>{{ vm.catalogSize }}</strong>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="list-panel">
+        <header>
+          <h2>Resident Space Objects</h2>
+          <input
+            type="search"
+            placeholder="Filter by name, alias, or tag"
+            ng-model="vm.filterText"
+            aria-label="Filter RSOs"
+          />
+        </header>
+        <ul class="rso-list">
+          <li
+            ng-repeat="rso in vm.filteredRsos()"
+            ng-click="vm.focusRso(rso)"
+            ng-class="{active: vm.selectedRso && vm.selectedRso.satcat_number === rso.satcat_number}"
+          >
+            <div>
+              <div class="title">{{ rso.display_name }}</div>
+              <div class="meta">
+                SatCat {{ rso.satcat_number }} · {{ rso.international_designator }}
+              </div>
+            </div>
+            <div class="tags">
+              <span ng-repeat="tag in rso.tags">{{ tag }}</span>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="viewer-panel">
+        <div id="cesiumContainer" class="viewer"></div>
+        <article class="details" ng-if="vm.selectedRso">
+          <h2>{{ vm.selectedRso.display_name }}</h2>
+          <p class="ids">
+            SatCat {{ vm.selectedRso.satcat_number }} · {{ vm.selectedRso.international_designator }}
+          </p>
+          <p>
+            <strong>Aliases:</strong> {{ vm.selectedRso.aliases.join(", ") || "—" }}
+          </p>
+          <p>
+            <strong>Tags:</strong> {{ vm.selectedRso.tags.join(", ") || "—" }}
+          </p>
+          <details>
+            <summary>TLE</summary>
+            <pre>{{ vm.selectedRso.tle }}</pre>
+          </details>
+        </article>
+        <article class="details" ng-if="!vm.selectedRso">
+          <h2>Select an RSO</h2>
+          <p>Choose a spacecraft from the list to highlight it on the map or globe.</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
